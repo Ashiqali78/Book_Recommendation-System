@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book Recommendation</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Font Awesome -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .navbar {
+      background-color: #ffc107;
+    }
+    .navbar-brand {
+      font-weight: bold;
+      color: #1e1e2f;
+    }
+    .nav-link.custom-link {
+      color: #1e1e2f;
+      font-weight: 600;
+      margin-left: 20px;
+    }
+    .nav-link.custom-link:hover {
+      color: #e0a800;
+    }
+    .section-title {
+      color: #ffc107;
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+    .form-container {
+      background-color: #1f1f2e;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 193, 7, 0.1);
+    }
+    .btn-custom {
+      background-color: #ffc107;
+      color: #1e1e2f;
+      font-weight: bold;
+    }
+    .btn-custom:hover {
+      background-color: #e0a800;
+    }
+    .recommendation-results {
+      margin-top: 40px;
+    }
+    .recommendation-results h4 {
+      color: #ffc107;
+      margin-bottom: 20px;
+    }
+    .card {
+      background-color: #1f1f2e;
+      border: none;
+    }
+    .card-img-top {
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px 10px 0 0;
+    }
+    .card-body h5,
+    .card-body p {
+      color: #f8f9fa;
+    }
+    footer {
+      background-color: #1f1f2e;
+      padding: 40px 0;
+      text-align: center;
+      color: #ccc;
+      margin-top: 60px;
+    }
+    footer h5 {
+      color: #ffc107;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    footer a {
+      color: #ffc107;
+      font-size: 1.5rem;
+      margin: 0 10px;
+    }
+    footer a:hover {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">📚 Book Recommender</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link custom-link" href="/">← Back to Home</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Title -->
+  <div class="container">
+    <h2 class="section-title">Get Your Book Recommendation</h2>
+
+    <!-- Input Form -->
+    <div class="form-container">
+      <form action="/recommend_books" method="post">
+        <div class="mb-4">
+          <label for="user_input" class="form-label">Enter a Book You Like:</label>
+          <input type="text" class="form-control" id="user_input" name="user_input" placeholder="e.g., Harry Potter" required>
+        </div>
+        <button type="submit" class="btn btn-custom">Recommend</button>
+      </form>
+    </div>
+
+    <!-- Show message if book not found -->
+    {% if message %}
+      <div class="alert alert-warning mt-4" role="alert">
+        {{ message }}
+      </div>
+    {% endif %}
+
+    <!-- Recommendation Results -->
+    {% if data %}
+    <div class="recommendation-results">
+      <h4 class="text-center mt-5">Recommended Books for You</h4>
+      <div class="row">
+        {% for book in data %}
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="card h-100 shadow">
+            <img src="{{ book[2] }}" class="card-img-top" alt="Book Cover">
+            <div class="card-body">
+              <h5 class="card-title">{{ book[0] }}</h5>
+              <p class="card-text">👤 {{ book[1] }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <h5>Made with ❤️ by Muhammad Awais</h5>
+    <div>
+      <a href="https://github.com/your-github" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/your-linkedin" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
+    <p class="mt-3">© 2025 All Rights Reserved</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
